@@ -1,5 +1,9 @@
 ### Hi there 👋
 
+你好，我是21级计科1班沈纪康，很高兴认识你。
+
+
+
 <!--
 **NoneAndNever/NoneAndNever** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
