@@ -129,9 +129,15 @@
     <ClInclude Include="utf8_gbk.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="TextSimilarity.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TextSimilarity.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

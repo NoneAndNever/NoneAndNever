@@ -54,10 +54,12 @@
     <ClInclude Include="include\cppjieba\TextRankExtractor.hpp" />
     <ClInclude Include="include\cppjieba\Trie.hpp" />
     <ClInclude Include="include\cppjieba\Unicode.hpp" />
+    <ClInclude Include="TextSimilarity.h" />
     <ClInclude Include="utf8_gbk.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp" />
+    <ClCompile Include="TextSimilarity.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

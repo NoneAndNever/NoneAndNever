@@ -6,7 +6,7 @@ using namespace std;
 
 string gbk_utf8(string str)
 {
-	//获取buffer大小
+	//鑾峰彇buffer澶у皬
 	int len = MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, NULL, 0);
 	wchar_t* wstr = new wchar_t[len];
 	//GBK-->UTF16
@@ -32,7 +32,7 @@ string gbk_utf8(string str)
 
 string utf8_gbk(string str)
 {
-	//获取buffer大小
+	//鑾峰彇buffer澶у皬
 	int len = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, NULL, 0);
 	wchar_t* wstr = new wchar_t[len];
 	//utf8-->utf16
