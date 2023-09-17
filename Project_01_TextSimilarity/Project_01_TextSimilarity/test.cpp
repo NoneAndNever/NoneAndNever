@@ -18,6 +18,7 @@ const char* const STOP_WORD_PATH = "./dict/stop_words.utf8";
 int main(int argc, char** argv) {
     TextSimilarity text_similarity(DICT_PATH, HMM_PATH, USER_DICT_PATH, IDF_PATH, STOP_WORD_PATH);
     
+    cout << text_similarity.get_cosine(argv[1], argv[2]);
 
     return EXIT_SUCCESS;
 }

@@ -41,4 +41,11 @@ public:
 
 	vector<pair<string, double>> sort_by_value_reverse(unordered_map<string, double>& wf);
 
+	void select_aim_words(vector<pair<string, double>>& wfvec, unordered_set<string>& wset);
+
+	vector<double> get_one_hot(unordered_set<string>& wset, unordered_map<string, double>& wf);
+
+	double cosine(vector<double> oneHot1, vector<double> oneHot2);
+
+	double get_cosine(const char* article_1_path, const char* article_2_path);
 };

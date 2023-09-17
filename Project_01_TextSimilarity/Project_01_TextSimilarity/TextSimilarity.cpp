@@ -132,3 +132,80 @@ vector<pair<string, double>> TextSimilarity::sort_by_value_reverse(unordered_map
     return wfvector;
 }
 
+// 将排序好的元素放入set中
+void TextSimilarity::select_aim_words(vector<pair<string, double>>& wf_vec, unordered_set<string>& word_set)
+{
+    int len = wf_vec.size();
+    int size = len > _maxWordNumber ? _maxWordNumber : len;
+    for (int i = 0; i < size; i++)
+    {
+        word_set.insert(wf_vec[i].first);
+    }
+}
+
+// 构建词频向量
+vector<double> TextSimilarity::get_one_hot(unordered_set<string>& word_set, unordered_map<string, double>& wf)
+{
+    //遍历word_set中的每一个词
+    vector<double> oneHot;
+    for (const auto& e : word_set)
+    {
+        if (wf.count(e)) {
+            if (idf_word_map_.count(e) > 0)
+                wf[e] *= idf_word_map_[e];
+            oneHot.push_back(wf[e]);
+        }
+        else
+            oneHot.push_back(0);
+    }
+    return oneHot;
+}
+
+double TextSimilarity::cosine(vector<double> oneHot1, vector<double> oneHot2) //求两个向量的相似度
+{
+    double modular1 = 0, modular2 = 0;
+    double products = 0;
+    assert(oneHot1.size() == oneHot2.size());
+    for (int i = 0; i < oneHot1.size(); i++)
+    {
+        products += oneHot1[i] * oneHot2[2];
+    }
+
+    for (int i = 0; i < oneHot1.size(); i++)
+    {
+        modular1 += pow(oneHot1[i], 2);
+    }
+    modular1 = pow(modular1, 0.5);
+
+    for (int i = 0; i < oneHot2.size(); i++)
+    {
+        modular2 += pow(oneHot1[i], 2);
+    }
+    modular2 = pow(modular2, 0.5);
+
+    return products / (modular2 * modular1);
+}
+
+
+double TextSimilarity::get_cosine(const char* article_1_path, const char* article_2_path) //将所有函数封装成一个接口，求两个文档的文本相似度
+{
+    t1_word_frequency_ = get_word_frequency_from_file(article_1_path);
+    t2_word_frequency_ = get_word_frequency_from_file(article_2_path);
+
+    vector<pair<string, double>> v1 = sort_by_value_reverse(t1_word_frequency_); //将文档1得到的词频进行排序
+    vector<pair<string, double>> v2 = sort_by_value_reverse(t2_word_frequency_); //将文档2得到的词频进行排序
+
+    unordered_set<string> wset1; //用来存文档1中排序好的元素
+    unordered_set<string> wset2; //用来存文档2中排序号的元素
+    select_aim_words(v1, wset1);
+    select_aim_words(v2, wset2); //这两个函数用来将vector中的元素存到set中，构建词频向量
+
+
+    vector<double> vd1;
+    vector<double> vd2;
+    vd1 = get_one_hot(wset1, t1_word_frequency_); //拿到文档1的构建好的词频向量
+    vd2 = get_one_hot(wset2, t2_word_frequency_); //拿到文档2的构建好的词频向量 
+
+    double res = cosine(vd1, vd2); //计算两个文本的文本相似度
+    return res;
+}
