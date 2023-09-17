@@ -17,8 +17,7 @@ const char* const STOP_WORD_PATH = "./dict/stop_words.utf8";
 
 int main(int argc, char** argv) {
     TextSimilarity text_similarity(DICT_PATH, HMM_PATH, USER_DICT_PATH, IDF_PATH, STOP_WORD_PATH);
-    text_similarity.set_word_frequency(argv[1], argv[2]);
-
+    
 
     return EXIT_SUCCESS;
 }

@@ -27,18 +27,18 @@ private:
 	// IDF表
 	unordered_map<string, double> idf_word_map_;
 	// 词频表
-	unordered_map<string, double> origin_word_frequency_;
-	unordered_map<string, double> target_word_frequency_;
+	unordered_map<string, double> t1_word_frequency_;
+	unordered_map<string, double> t2_word_frequency_;
 	// 相似度
 	double similarity_ = -1;
+	int _maxWordNumber = 20;
 
 
 public:
-	void set_word_frequency(const char* origin_article_path, const char* target_article_path);
+	void set_word_frequency(const char* article_1_path, const char* article_2_path);
 	
 	unordered_map<string, double> get_word_frequency_from_file(const char* path);
-	
 
-	
-	
+	vector<pair<string, double>> sort_by_value_reverse(unordered_map<string, double>& wf);
+
 };

@@ -24,11 +24,7 @@ TextSimilarity::TextSimilarity(
     get_idf_words(idf_path.c_str());
 }
 
-void set_idf_word_maps(const char* origin_file_path, const char* target_file_path)
-{
-    
-}
-
+// 获取idf表
 void TextSimilarity::get_idf_words(const char* idf_file) //得到IDF 
 {
     ifstream isf(idf_file);
@@ -48,6 +44,7 @@ void TextSimilarity::get_idf_words(const char* idf_file) //得到IDF
     isf.close();
 }
 
+// 获取停用词表
 void TextSimilarity::get_stop_word_table(const char* stop_word_file) //得到停用词表
 {
     ifstream isf(stop_word_file);
@@ -66,12 +63,14 @@ void TextSimilarity::get_stop_word_table(const char* stop_word_file) //得到停
     isf.close();
 }
 
-void TextSimilarity::set_word_frequency(const char* origin_article_path, const char* target_article_path)
+// 设置词频表
+void TextSimilarity::set_word_frequency(const char* article_1_path, const char* article_2_path)
 {
-    origin_word_frequency_ = get_word_frequency_from_file(origin_article_path);
-    target_word_frequency_ = get_word_frequency_from_file(target_article_path);
+    t1_word_frequency_ = get_word_frequency_from_file(article_1_path);
+    t2_word_frequency_ = get_word_frequency_from_file(article_2_path);
 }
 
+// 从文件中读取字符串并计算词频
 unordered_map<string, double> TextSimilarity::get_word_frequency_from_file(const char* path) {
     ifstream input_file(path);
     if (!input_file.is_open()) {
@@ -118,3 +117,18 @@ unordered_map<string, double> TextSimilarity::get_word_frequency_from_file(const
     }
     return res;
 }
+
+// 比较函数
+bool cmp_reverse(pair<string, double> lp, pair<string, double> rp) 
+{
+    return lp.second > rp.second;
+}
+
+// 排序函数（按照降序排列）
+vector<pair<string, double>> TextSimilarity::sort_by_value_reverse(unordered_map<string, double>& word_frequency) 
+{
+    vector<pair<string, double>> wfvector(word_frequency.begin(), word_frequency.end());
+    sort(wfvector.begin(), wfvector.end(), cmp_reverse);
+    return wfvector;
+}
+
