@@ -1,70 +1,44 @@
-#pragma once
+ï»¿#pragma once
 #include <iostream>
+
+//if CALCULATE_DEBUG is true, the calculation procedure will be printed
+#ifndef CALCULATE_DEBUG
+#define CALCULATE_DEBUG true
+#endif
 
 class Number {
 private:
-	unsigned int numerator;		// ·Ö×Ó
-	unsigned int denominator;	// ·ÖÄ¸
+	unsigned int numerator;		// 1 of 1/3
+	unsigned int denominator;	// 3 of 1/3
 public:
 	Number(unsigned int _numerator);
 	Number(unsigned int _numerator, unsigned int _denominator);
-	inline unsigned int getNum() const { return numerator; }
-	inline unsigned int getDen() const { return denominator; }
-	
-	static Number Add(const Number& A, const Number& B);
-	static Number Minus(const Number& A, const Number& B);
-	static Number Multiply(const Number& A, const Number& B);
-	static Number Divide(const Number& A, const Number& B);
-
-	Number Add(const Number& other);
-	Number Minus(const Number& other);
-	Number Multiply(const Number& other);
-	Number Divide(const Number& other);
+	inline unsigned int get_num() const { return numerator; }
+	inline unsigned int get_den() const { return denominator; }
+	bool is_valid() const {return get_num() < 0 || get_den() == 0;}
 
 	std::string to_string() const;
 
+	static Number add(const Number& A, const Number& B);
+	static Number minus(const Number& A, const Number& B);
+	static Number multiply(const Number& A, const Number& B);
+	static Number divide(const Number& A, const Number& B);
+
+	Number add(const Number& other) const;
+	Number minus(const Number& other) const;
+	Number multiply(const Number& other) const;
+	Number divide(const Number& other) const;
+	
 	Number operator+(const Number& other);
 	Number operator-(const Number& other);
 	Number operator*(const Number& other);
 	Number operator/(const Number& other);
 
 	friend std::ostream& operator<< (std::ostream& out, Number& num);
-};
 
-
-typedef Number(*operatorFunc)(const Number&, const Number&);
-
-class Operator {
-private:
-	operatorFunc func;
-public:
-	Operator(const char& operatorChar);
-	Operator(operatorFunc _func);
-
-	std::string to_string() const;
 	
-	operatorFunc& operator*() {return func;}
-	operatorFunc* operator->() {return &func;}
-	friend  std::ostream& operator<< (std::ostream& out, Operator& o);
-
 };
 
-// std::ostream& operator<< (std::ostream& out, Number& num) {
-// 	if (num.getDen() == 1)
-// 		out << num.getNum();
-// 	else if(num.getNum() < num.getDen()) 
-// 		out << num.getNum() << "/" << num.getDen();
-// 	else
-// 		out << num.getNum() / num.getDen() << "'" 
-// 		<< num.getNum() - num.getNum() / num.getDen() * num.getNum()
-// 		<< "/" << num.getDen();
-// 	return out;
-// }
-//
-// std::ostream& operator<< (std::ostream& out, Operator& o) {
-// 	if(o.func == Number::Add) out << "+";
-// 	else if(o.func == Number::Minus) out << "-";
-// 	else if(o.func == Number::Multiply) out << "*";
-// 	else if(o.func == Number::Divide) out << "/";
-// 	return out;
-// }
+
+
+

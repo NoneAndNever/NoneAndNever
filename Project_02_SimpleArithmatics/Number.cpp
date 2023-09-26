@@ -1,10 +1,10 @@
-#include "Number.h"
+﻿#include "Number.h"
 
 #include <string>
 
 
-int gcd(unsigned int a, unsigned int b) {
-	return b == 0 ? gcd(b, a % b) : a;
+unsigned int gcd(unsigned int a, unsigned int b) {
+	return b > 0 ? gcd(b, a % b) : a;
 }
 
 Number::Number(unsigned int _numerator)
@@ -24,62 +24,67 @@ Number::Number(unsigned int _numerator, unsigned int _denominator)
 		denominator = _denominator;
 	}
 	else {
-		int gcd_num = gcd(_numerator, _denominator);
+		unsigned int gcd_num = gcd(_numerator, _denominator);
 		numerator = _numerator / gcd_num;
 		denominator = _denominator / gcd_num;
 	}
 }
 
-Number Number::Add(const Number& A, const Number& B) {
+std::string Number::to_string() const
+{
+	std::string res;
+	if (get_den() == 1) // integer
+		res += std::to_string(get_num());
+	else if(get_num() < get_den()) // proper fraction (with numerator < denominator)
+		res += std::to_string(get_num()) + "/" + std::to_string(get_den());
+	else // improper fraction
+		res += std::to_string(get_num() / get_den()) + "'" +
+				std::to_string(get_num() - get_num() / get_den() * get_den()) + "/" +
+				std::to_string(get_den());
+	return res;
+}
+
+Number Number::add(const Number& A, const Number& B) {
 	if (A.denominator == B.denominator) return Number(A.numerator + B.numerator, A.denominator);
 	return Number(A.numerator * B.denominator + B.numerator * A.denominator, A.denominator * B.denominator);
 }
 
-Number Number::Minus(const Number& A, const Number& B){
+Number Number::minus(const Number& A, const Number& B){
 	if (A.denominator == B.denominator) return Number(A.numerator - B.numerator, A.denominator);
 	return Number(A.numerator * B.denominator - B.numerator * A.denominator, A.denominator * B.denominator);
 }
 
-Number Number::Multiply(const Number& A, const Number& B) {
+Number Number::multiply(const Number& A, const Number& B) {
 	return Number(A.numerator * B.numerator, A.denominator * B.denominator);
 }
 
-Number Number::Divide(const Number& A, const Number& B){
-	if (B.numerator == 0) std::cerr << "can't divide by zero.";
+Number Number::divide(const Number& A, const Number& B){
+	if (B.numerator == 0) std::cerr << "ERROR : can't divide by zero.";
 	else return Number(A.numerator * B.denominator, A.denominator * B.numerator);
 }
 
-Number Number::Add(const Number& other) {
+Number Number::add(const Number& other) const
+{
 	if (denominator == other.denominator) return Number(numerator + other.numerator, denominator);
 	return Number(numerator * other.denominator + other.numerator * denominator, denominator * other.denominator);
 }
 
-Number Number::Minus(const Number& other) {
+Number Number::minus(const Number& other) const
+{
 	if (denominator == other.denominator) return Number(numerator - other.numerator, denominator);
 	return Number(numerator * other.denominator - other.numerator * denominator, denominator * other.denominator);
 }
 
-Number Number::Multiply(const Number& other) {
+Number Number::multiply(const Number& other) const
+{
 	return Number(numerator * other.numerator, denominator * other.denominator);
 }
 
-Number Number::Divide(const Number& other) {
+Number Number::divide(const Number& other) const
+{
 	if (other.numerator == 0) std::cerr << "can't divide by zero.";
 	else return Number(numerator * other.denominator, denominator * other.numerator);
-}
-
-std::string Number::to_string() const
-{
-	std::string res;
-	if (getDen() == 1)
-		res += std::to_string(getNum());
-	else if(getNum() < getDen())
-		res += std::to_string(getNum()) + "/" + std::to_string(getDen());
-	else
-		res += std::to_string(getNum() / getDen()) + "'" +
-				std::to_string(getNum() - getNum() / getDen() * getNum()) + "/" +
-				std::to_string(getDen());
-	return res;
+	return {0,0};
 }
 
 Number Number::operator+(const Number& other) {
@@ -101,27 +106,15 @@ Number Number::operator/(const Number& other) {
 	else return Number(numerator * other.denominator, denominator * other.numerator);
 }
 
-Operator::Operator(const char& operatorChar)
-{
-	switch (operatorChar)
-	{
-	case '+': func = Number::Add; break;
-	case '-': func = Number::Minus; break;
-	case '*': func = Number::Multiply; break;
-	case '/': func = Number::Divide; break;
-	}
+std::ostream& operator<< (std::ostream& out, Number& num) {
+	if (num.get_den() == 1)
+		out << num.get_num();
+	else if(num.get_num() < num.get_den()) 
+		out << num.get_num() << "/" << num.get_den();
+	else
+		out << num.get_num() / num.get_den() << "'" 
+		<< num.get_num() - num.get_num() / num.get_den() * num.get_num()
+		<< "/" << num.get_den();
+	return out;
 }
 
-Operator::Operator(operatorFunc _func)
-{
-	func = _func;
-}
-
-std::string Operator::to_string() const
-{
-	if(func == Number::Add) return "+";
-	if(func == Number::Minus) return "-";
-	if(func == Number::Multiply) return "*";
-	if(func == Number::Divide) return "/";
-	return std::string();
-}
