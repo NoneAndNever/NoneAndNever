@@ -34,6 +34,12 @@ public:
 	Number operator*(const Number& other);
 	Number operator/(const Number& other);
 
+	bool operator<(const Number& other) const;
+	bool operator<=(const Number& other) const;
+	bool operator==(const Number& other) const;
+	bool operator>=(const Number& other) const;
+	bool operator>(const Number& other) const;
+
 	friend std::ostream& operator<< (std::ostream& out, Number& num);
 
 	

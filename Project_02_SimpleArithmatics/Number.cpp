@@ -106,6 +106,31 @@ Number Number::operator/(const Number& other) {
 	else return Number(numerator * other.denominator, denominator * other.numerator);
 }
 
+bool Number::operator<(const Number& other) const
+{
+	return numerator * other.denominator < other.numerator * denominator;
+}
+
+bool Number::operator<=(const Number& other) const
+{
+	return numerator * other.denominator <= other.numerator * denominator;
+}
+
+bool Number::operator==(const Number& other) const
+{
+	return numerator * other.denominator == other.numerator * denominator;
+}
+
+bool Number::operator>=(const Number& other) const
+{
+	return numerator * other.denominator >= other.numerator * denominator;
+}
+
+bool Number::operator>(const Number& other) const
+{
+	return numerator * other.denominator > other.numerator * denominator;
+}
+
 std::ostream& operator<< (std::ostream& out, Number& num) {
 	if (num.get_den() == 1)
 		out << num.get_num();
