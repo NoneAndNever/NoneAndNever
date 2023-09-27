@@ -151,7 +151,7 @@ Number Arithmatics::calculate()
     
     while(it_num != nums.end())
     {
-        if(it_opr->get_type() == LeftBrace)
+        if(it_opr != operators.end() && it_opr->get_type() == LeftBrace)
         {
             num_stack.push(calculate_in_brace(it_num, ++it_opr));
         }

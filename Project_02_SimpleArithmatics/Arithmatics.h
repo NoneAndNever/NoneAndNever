@@ -37,6 +37,12 @@ public:
 	// call calculate() to get result
 	Number get_result();
 
+	bool operator<(Arithmatics& other)	{return get_result() < get_result();}
+	bool operator<=(Arithmatics& other)	{return get_result() <= get_result();}
+	bool operator==(Arithmatics& other)	{return get_result() == get_result();}
+	bool operator>=(Arithmatics& other)	{return get_result() >= get_result();}
+	bool operator>(Arithmatics& other)	{return get_result() > get_result();}
+
 private:
 	Number calculate();
 	Number calculate_in_brace(
