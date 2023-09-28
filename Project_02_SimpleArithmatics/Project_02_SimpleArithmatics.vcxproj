@@ -127,15 +127,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Arithmatics.h" />
+    <ClInclude Include="Arithmetics.h" />
+    <ClInclude Include="Generation.h" />
     <ClInclude Include="Number.h" />
     <ClInclude Include="Operator.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Arithmatics.cpp" />
+    <ClCompile Include="Arithmetics.cpp" />
+    <ClCompile Include="Generation.cpp" />
     <ClCompile Include="Number.cpp" />
     <ClCompile Include="Operator.cpp" />
     <ClCompile Include="test.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Answer.txt" />
+    <Text Include="answerfile.txt" />
+    <Text Include="exercisefile.txt" />
+    <Text Include="Grade.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

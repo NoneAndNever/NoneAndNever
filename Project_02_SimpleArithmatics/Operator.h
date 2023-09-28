@@ -37,13 +37,13 @@ public:
 
 	// call the corresponding function of the operator
 	Number func(const Number& A, const Number& B) const;
-	
-	char get_char() const {return operator_char[type];}
-	unsigned char get_priority() const {return operator_priority[type];}
-	e_operator_type get_type() const {return type;}
-	
+
+	char get_char() const { return operator_char[type]; }
+	unsigned char get_priority() const { return operator_priority[type]; }
+	e_operator_type get_type() const { return type; }
+
 	std::string to_string() const;
-	
+
 	//operatorFunc& operator*() { return operator_func[type]; }
 	//operatorFunc* operator->() { return &operator_func[type]; }
 	friend std::ostream& operator<< (std::ostream& out, Operator& o);

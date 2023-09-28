@@ -144,20 +144,23 @@ Number Arithmatics::get_result()
 Number Arithmatics::calculate()
 {
     if(nums.empty()) return Number{0};
-    std::vector<Number>::iterator it_num = nums.begin();
+    auto it_num = nums.begin();
     auto it_opr = operators.begin();
     std::stack<Number> num_stack;
     std::stack<Operator> opr_stack;
     
     while(it_num != nums.end())
     {
-        if(it_opr->get_type() == LeftBrace)
+        if(it_opr != operators.end() && it_opr->get_type() == LeftBrace)
         {
             num_stack.push(calculate_in_brace(it_num, ++it_opr));
         }
-        if(it_num == nums.end()) break;
-        num_stack.push(*it_num);
-        ++it_num;
+        else
+        {
+            if (it_num == nums.end()) break;
+            num_stack.push(*it_num);
+            ++it_num;
+        }
 
         if(it_opr == operators.end()) break;
 
@@ -205,9 +208,13 @@ Number Arithmatics::calculate_in_brace(std::vector<Number>::iterator& it_num,
         {
             num_stack.push(calculate_in_brace(it_num, ++it_opr));
         }
-        
-        num_stack.push(*it_num);
-        ++it_num;
+        else 
+        {
+            if(it_num == nums.end()) break;
+            num_stack.push(*it_num);
+            ++it_num;
+        }
+
 
         if(it_opr == operators.end() || it_opr->get_type() == e_operator_type::RightBrace) break;
         
