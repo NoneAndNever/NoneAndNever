@@ -177,7 +177,7 @@ void Generation::Compare(void)
 	if (!commaSeparated.empty()) {
 		commaSeparated = commaSeparated.substr(0, commaSeparated.length() - 2);
 	}
-	grade << "Correct:" << wrongNum.size() << "( " << commaSeparated << ")" << "\n";
+	grade << "Wrong:" << wrongNum.size() << "( " << commaSeparated << ")" << "\n";
 }
 
 
