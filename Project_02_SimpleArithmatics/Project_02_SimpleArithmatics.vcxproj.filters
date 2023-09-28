@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Arithmatics.h">
+    <ClInclude Include="Arithmetics.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Number.h">
@@ -24,9 +24,12 @@
     <ClInclude Include="Operator.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Generation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Arithmatics.cpp">
+    <ClCompile Include="Arithmetics.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Number.cpp">
@@ -38,5 +41,14 @@
     <ClCompile Include="Operator.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Generation.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="exercisefile.txt" />
+    <Text Include="Answer.txt" />
+    <Text Include="answerfile.txt" />
+    <Text Include="Grade.txt" />
   </ItemGroup>
 </Project>
